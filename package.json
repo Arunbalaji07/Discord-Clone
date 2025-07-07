@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:generate": "rimraf node_modules/.prisma && npx prisma generate && npx prisma db push"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.23.3",
@@ -50,6 +51,7 @@
     "eslint-config-next": "15.3.5",
     "prettier": "^3.6.2",
     "prisma": "^6.11.1",
+    "rimraf": "^6.0.1",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5"

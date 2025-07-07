@@ -1,14 +1,24 @@
 'use client';
 
 import { MemberRole } from '@prisma/client';
-import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from 'lucide-react';
+import {
+	ChevronDown,
+	LogOut,
+	PlusCircle,
+	Settings,
+	Trash,
+	UserPlus,
+	Users,
+} from 'lucide-react';
 
 import { ServerWithMembersWithProfiles } from '@/types';
+import { useModal } from '@/hooks/use-modal-store';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuItem, DropdownMenuSeparator,
-	DropdownMenuTrigger
+	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
 interface ServerHeaderProps {
@@ -17,6 +27,8 @@ interface ServerHeaderProps {
 }
 
 const ServerHeader = ({ server, role }: ServerHeaderProps) => {
+	const { onOpen } = useModal();
+
 	const isAdmin = role === MemberRole.ADMIN;
 	const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
@@ -35,6 +47,7 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
 			>
 				{isModerator && (
 					<DropdownMenuItem
+						onClick={() => onOpen('invite', { server })}
 						className={`text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer`}
 					>
 						Invite People
@@ -42,32 +55,24 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
 					</DropdownMenuItem>
 				)}
 				{isAdmin && (
-					<DropdownMenuItem
-						className={`px-3 py-2 text-sm cursor-pointer`}
-					>
+					<DropdownMenuItem className={`px-3 py-2 text-sm cursor-pointer`}>
 						Server Settings
 						<Settings className={`h-4 w-4 ml-auto`} />
 					</DropdownMenuItem>
 				)}
 				{isAdmin && (
-					<DropdownMenuItem
-						className={`px-3 py-2 text-sm cursor-pointer`}
-					>
+					<DropdownMenuItem className={`px-3 py-2 text-sm cursor-pointer`}>
 						Manage Members
 						<Users className={`h-4 w-4 ml-auto`} />
 					</DropdownMenuItem>
 				)}
 				{isModerator && (
-					<DropdownMenuItem
-						className={`px-3 py-2 text-sm cursor-pointer`}
-					>
+					<DropdownMenuItem className={`px-3 py-2 text-sm cursor-pointer`}>
 						Create Channel
 						<PlusCircle className={`h-4 w-4 ml-auto`} />
 					</DropdownMenuItem>
 				)}
-				{isModerator && (
-					<DropdownMenuSeparator />
-				)}
+				{isModerator && <DropdownMenuSeparator />}
 				{isAdmin && (
 					<DropdownMenuItem
 						className={`text-rose-500 px-3 py-2 text-sm cursor-pointer`}
