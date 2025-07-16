@@ -45,7 +45,7 @@ const formSchema = z.object({
 	type: z.nativeEnum(ChannelType)
 });
 
-const EditServerModal = () => {
+const EditChannelModal = () => {
 	const { isOpen, onClose, type, data } = useModal();
 	const router = useRouter();
 
@@ -93,7 +93,6 @@ const EditServerModal = () => {
 
 	return (
 		<div>
-			return (
 			<Dialog open={isModalOpen} onOpenChange={handleClose}>
 				<DialogContent className="bg-white text-black p-0 overflow-hidden">
 					<DialogHeader className="pt-8 px-6">
@@ -170,4 +169,4 @@ const EditServerModal = () => {
 	);
 };
 
-export default EditServerModal;
+export default EditChannelModal;
